@@ -7,18 +7,42 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Scanner;
 
 public class MainDrive {
 
 	public static void main(String[] args) {
 		
 //		writeToFile(); //파일에 쓰기
-		readFile();
+//		readFile();
+		
+		Scanner myScanner = new Scanner(System.in);
+		System.out.println("저장할 문구");
+		String inputStr = myScanner.nextLine(); // 엔터를 치니까 저장된다!
+		writeToFileScan(inputStr);
+		
 	}
+	
+	static void writeToFileScan(String inpuString) {
+//		파일 SAVE (Output 실습)
+//		1. 어디에 파일 저장?
+		File myFile = new File("mytest_scanner.txt");
+		
+//		2. 파일 작성 클래스 활용.
+		try {
+			FileWriter fw = new FileWriter(myFile, true); // true 넣으면 이어 붙이기 
+			BufferedWriter bw = new BufferedWriter(fw);
+			bw.append(inpuString); // 내용 저장. 내용을 싹 지우고 다시 쓴다.
+			bw.newLine(); // 한 줄 띄우기
+			bw.close(); fw.close(); // 파일 닫기
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	
 	static void readFile() {
 //		파일 LOAD (Input 실습)
-		
 //		1. 어디서 파일을 읽어올지? 경로 설정.
 		File myFile = new File("mytest.txt");
 		
@@ -38,7 +62,6 @@ public class MainDrive {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -48,7 +71,6 @@ public class MainDrive {
 	
 	static void writeToFile() {
 //		파일 SAVE (Output 실습)
-		
 //		1. 어디에 파일을 저장할지? 경로 설정.
 		File myFile = new File("mytest.txt");
 		
